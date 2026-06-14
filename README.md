@@ -1,282 +1,226 @@
-# RBX-AI Setup Guide
+# RBX-AI - Multi-Provider AI Chat Application
 
-## Quick Start
+A powerful desktop and web application for AI chat with support for multiple AI providers and autonomous agent mode.
 
-### 1. Clone the Repository
+## 🌟 Features
+
+### Multi-Provider AI Support
+- 🔵 **OpenAI** - GPT-4, GPT-3.5-Turbo
+- 🤖 **Anthropic** - Claude 3 series
+- 🔍 **Google Gemini** - Latest models
+- ⚡ **Groq** - Ultra-fast inference
+- 🟣 **Deepseek** - High-performance models
+- 🌐 **OpenRouter** - Multi-model access
+- 🔗 **Together AI** - Open-source models
+
+### Core Features
+- 💬 Real-time chat interface
+- 🎯 Agent mode for autonomous tasks
+- 📚 Conversation history
+- 🔐 Secure API key management
+- 🎨 Dark mode Bootstrap UI
+- 💾 Local data persistence
+- 🖥️ Desktop & Web versions
+
+## 🚀 Quick Start
+
+### Web Version
 ```bash
-git clone https://github.com/Darashad171/RBX-Ai.git
-cd RBX-Ai
-```
-
-### 2. Backend Setup
-
-```bash
+# Backend
 cd backend
-
-# Install dependencies
 npm install
-
-# Create .env file with your API keys
 cp .env.example .env
-
-# Edit .env and add your API keys:
-# OPENAI_API_KEY=your_key_here
-# DEEPSEEK_API_KEY=your_key_here
-# ANTHROPIC_API_KEY=your_key_here
-# GEMINI_API_KEY=your_key_here
-# OPENROUTER_API_KEY=your_key_here
-# GROQ_API_KEY=your_key_here
-# TOGETHER_AI_API_KEY=your_key_here
-
-# Start the server
+# Add your API keys to .env
 npm start
 
-# For development with auto-reload:
-npm run dev
-```
-
-Server will run on `http://localhost:5000`
-
-### 3. Frontend Setup
-
-```bash
+# Frontend (in another terminal)
 cd frontend
-
-# Install dependencies
 npm install
-
-# Create .env file
-cp .env.example .env
-
-# Start development server
 npm run dev
 ```
 
-Frontend will run on `http://localhost:5173`
+Visit `http://localhost:5173`
 
-## API Keys Setup
+### Desktop Version (.exe)
 
-### OpenAI
-1. Go to https://platform.openai.com/api-keys
-2. Create new API key
-3. Add to `.env`: `OPENAI_API_KEY=sk-...`
+#### Option 1: Download from Releases
+1. Go to [Releases](https://github.com/Darashad171/RBX-Ai/releases)
+2. Download `RBX-AI-Setup.exe` or `RBX-AI.exe` (portable)
+3. Run the installer
+4. Launch RBX-AI
 
-### Anthropic (Claude)
-1. Go to https://console.anthropic.com
-2. Create API key
-3. Add to `.env`: `ANTHROPIC_API_KEY=sk-ant-...`
+#### Option 2: Build Yourself
+```bash
+# Windows
+double-click build-exe.bat
 
-### Google Gemini
-1. Go to https://makersuite.google.com/app/apikey
-2. Create API key
-3. Add to `.env`: `GEMINI_API_KEY=...`
-
-### Groq
-1. Go to https://console.groq.com/keys
-2. Create API key
-3. Add to `.env`: `GROQ_API_KEY=...`
-
-### Deepseek
-1. Go to https://api.deepseek.com
-2. Create API key
-3. Add to `.env`: `DEEPSEEK_API_KEY=...`
-
-### OpenRouter
-1. Go to https://openrouter.ai/keys
-2. Create API key
-3. Add to `.env`: `OPENROUTER_API_KEY=...`
-
-### Together AI
-1. Go to https://www.together.ai
-2. Create API key
-3. Add to `.env`: `TOGETHER_AI_API_KEY=...`
-
-## Features
-
-### Chat Interface
-- Real-time messaging
-- Multi-provider support
-- Conversation history
-- Dark mode UI
-
-### Agent Mode
-- Create autonomous agents
-- Define goals and tasks
-- Multi-step execution
-- Agent management
-
-### Settings
-- Provider selection
-- Model configuration
-- Theme preferences
-- API key management
-
-## API Documentation
-
-### Chat Endpoints
-
-**Send Message**
-```
-POST /api/chat/message
-{
-  "provider": "openai",
-  "model": "gpt-3.5-turbo",
-  "messages": [
-    { "role": "user", "content": "Hello" }
-  ],
-  "options": {
-    "temperature": 0.7,
-    "maxTokens": 2000
-  }
-}
+# Mac/Linux
+chmod +x build-exe.sh
+./build-exe.sh
 ```
 
-**Stream Message**
-```
-POST /api/chat/stream
-(Same as above, returns SSE stream)
-```
+See [DESKTOP_BUILD.md](DESKTOP_BUILD.md) for detailed instructions.
 
-### Provider Endpoints
+## 📖 Documentation
 
-**Get Available Providers**
-```
-GET /api/providers
-```
+- **[SETUP.md](SETUP.md)** - Complete setup guide
+- **[DESKTOP_BUILD.md](DESKTOP_BUILD.md)** - Building desktop executable
+- **API Documentation** - See SETUP.md for REST API endpoints
 
-**Get Provider Models**
-```
-GET /api/providers/:provider/models
-```
+## 🛠️ Tech Stack
 
-**Test Connection**
-```
-POST /api/providers/:provider/test
-```
+### Backend
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **AI Integrations**: Multiple provider SDKs
+- **Language**: JavaScript
 
-### Agent Endpoints
+### Frontend
+- **Framework**: React 18
+- **Build Tool**: Vite
+- **UI Library**: Bootstrap 5
+- **Desktop**: Electron
 
-**Create Agent**
-```
-POST /api/agent/create
-{
-  "name": "Data Analyzer",
-  "goal": "Analyze sales data",
-  "provider": "openai",
-  "model": "gpt-3.5-turbo"
-}
-```
+### Features
+- **Agent Mode**: Autonomous task execution
+- **Chat Interface**: Real-time messaging
+- **Settings Management**: User preferences
+- **Conversation History**: Local storage
 
-**Execute Agent**
-```
-POST /api/agent/:agentId/execute
-```
-
-**Agent Step**
-```
-POST /api/agent/:agentId/step
-{
-  "userInput": "Continue with next step"
-}
-```
-
-**Get Agent Status**
-```
-GET /api/agent/:agentId
-```
-
-**List Agents**
-```
-GET /api/agent
-```
-
-**Delete Agent**
-```
-DELETE /api/agent/:agentId
-```
-
-## Project Structure
+## 📦 Project Structure
 
 ```
 RBX-Ai/
 ├── backend/
 │   ├── config/
-│   │   └── providers.js        # Provider configuration
 │   ├── routes/
-│   │   ├── chat.js            # Chat routes
-│   │   ├── providers.js       # Provider routes
-│   │   ├── agent.js           # Agent routes
-│   │   └── settings.js        # Settings routes
 │   ├── services/
-│   │   └── aiService.js       # AI service layer
-│   ├── server.js              # Express server
+│   ├── server.js
 │   ├── package.json
 │   └── .env.example
-│
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── ChatWindow.jsx
-│   │   │   ├── Sidebar.jsx
-│   │   │   └── AgentMode.jsx
 │   │   ├── services/
-│   │   │   └── api.js         # API client
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   ├── index.html
-│   ├── vite.config.js
+│   │   └── App.jsx
+│   ├── public/
+│   │   ├── electron.js
+│   │   └── preload.js
 │   ├── package.json
-│   └── .env.example
-│
-├── README.md
+│   └── vite.config.js
+├── build-exe.bat
+├── build-exe.sh
 ├── SETUP.md
+├── DESKTOP_BUILD.md
+├── README.md
 └── .gitignore
 ```
 
-## Troubleshooting
+## 🔑 API Keys
 
-### Port Already in Use
-```bash
-# Change PORT in .env
-PORT=5001
+### Getting Started
+1. Get API keys from each provider:
+   - [OpenAI](https://platform.openai.com/api-keys)
+   - [Anthropic](https://console.anthropic.com)
+   - [Google Gemini](https://makersuite.google.com/app/apikey)
+   - [Groq](https://console.groq.com/keys)
+   - [Deepseek](https://api.deepseek.com)
+   - [OpenRouter](https://openrouter.ai/keys)
+   - [Together AI](https://www.together.ai)
 
-# Or kill existing process
-lsof -ti:5000 | xargs kill -9  # Mac/Linux
-netstat -ano | findstr :5000   # Windows
+2. Add to `backend/.env`:
+   ```
+   OPENAI_API_KEY=your_key
+   ANTHROPIC_API_KEY=your_key
+   # ... etc
+   ```
+
+3. Restart backend server
+
+## 🎯 Agent Mode
+
+Create autonomous agents to handle complex tasks:
+
+1. **Create Agent**
+   - Give it a name and goal
+   - Select provider and model
+
+2. **Execute**
+   - Agent analyzes the goal
+   - Breaks into steps
+   - Executes autonomously
+
+3. **Monitor**
+   - Track execution progress
+   - View step results
+   - Manage active agents
+
+## 🔧 Development
+
+### Adding a New Provider
+
+1. Add to `backend/config/providers.js`:
+```javascript
+newprovider: {
+  name: 'New Provider',
+  apiKey: process.env.NEW_PROVIDER_API_KEY,
+  models: ['model-1', 'model-2']
+}
 ```
 
-### CORS Issues
-Make sure backend is running and frontend proxy is configured in `vite.config.js`
-
-### API Key Not Working
-- Check `.env` file is in correct directory
-- Verify API keys are valid
-- Check provider is configured in environment
-
-### Module Not Found
-```bash
-# Reinstall dependencies
-rm -rf node_modules package-lock.json
-npm install
+2. Implement in `backend/services/aiService.js`:
+```javascript
+async sendToNewProvider(messages, model, options) {
+  // Implementation here
+}
 ```
 
-## Development
+3. Provider is automatically available!
 
-### Adding New Provider
-1. Add provider config to `backend/config/providers.js`
-2. Implement provider method in `backend/services/aiService.js`
-3. Provider will be automatically available
+### Frontend Development
+- Edit components in `frontend/src/components/`
+- Update API calls in `frontend/src/services/api.js`
+- Styles in `frontend/src/index.css`
 
-### Extending Features
-- Add routes in `backend/routes/`
-- Add components in `frontend/src/components/`
-- Add API calls in `frontend/src/services/api.js`
+## 🤝 Contributing
 
-## Support
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Commit changes
+4. Push to branch
+5. Create Pull Request
 
-For issues or questions, create an issue on GitHub or check the documentation.
+## 📝 License
+
+MIT License - see LICENSE file for details
+
+## 🆘 Support
+
+- **Documentation**: Check [SETUP.md](SETUP.md) and [DESKTOP_BUILD.md](DESKTOP_BUILD.md)
+- **Issues**: Create an issue on GitHub
+- **Discussions**: Use GitHub Discussions
+
+## 🎉 Features Coming Soon
+
+- [ ] Text-to-speech
+- [ ] Voice input
+- [ ] Image generation integration
+- [ ] Plugin system
+- [ ] Advanced analytics
+- [ ] Team collaboration
+- [ ] Cloud sync
+
+## 📊 Stats
+
+- 7 AI providers
+- Multi-agent support
+- Real-time chat
+- Conversation history
+- Cross-platform (Windows, Mac, Linux, Web)
 
 ---
 
-Happy coding! 🚀
+**Built with ❤️ by Darashad171**
+
+[⭐ Star on GitHub](https://github.com/Darashad171/RBX-Ai) | [📥 Download](https://github.com/Darashad171/RBX-Ai/releases) | [🐛 Report Issue](https://github.com/Darashad171/RBX-Ai/issues)
